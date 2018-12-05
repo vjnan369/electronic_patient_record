@@ -37,17 +37,19 @@ public class PatientServiceImpl implements PatientService {
         if (patientPayload.getPatient() != null) {
             System.out.println(patientPayload.getPatient());
             Patient newPatient = patientRepository.save(patientPayload.getPatient());
-            if (patientPayload.getAddress() != null) {
-                Address newAddress = patientPayload.getAddress();
-                newAddress.setPatientId(newPatient.getId());
-                System.out.println(patientPayload.getAddress());
-                System.out.println(newAddress);
-                addressRepository.save(newAddress);
+            if (patientPayload.getAddresses() != null && !patientPayload.getAddresses().isEmpty()) {
+                List<Address> newAddresses = patientPayload.getAddresses();
+                for (Address address : newAddresses) {
+                    address.setPatientId(newPatient.getId());
+                    addressRepository.save(address);
+                }
             }
-            if (patientPayload.getContact() != null) {
-                Contact newContact = patientPayload.getContact();
-                newContact.setPatientId(newPatient.getId());
-                contactRepository.save(newContact);
+            if (patientPayload.getContacts() != null && !patientPayload.getContacts().isEmpty()) {
+                List<Contact> newContacts = patientPayload.getContacts();
+                for (Contact contact : newContacts) {
+                    contact.setPatientId(newPatient.getId());
+                    contactRepository.save(contact);
+                }
             }
             return Optional.ofNullable(newPatient);
         }

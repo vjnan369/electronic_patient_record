@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import project.model.Patient;
 import project.model.PatientPayload;
 import project.services.PatientService;
+import project.util.JsonConverterHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,9 @@ public class PatientController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PatientController.class);
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private JsonConverterHelper jsonConverterHelper;
 
     @GetMapping("/patients")
     public Page<Patient> index(Pageable pageable) {
@@ -36,7 +40,7 @@ public class PatientController {
     public Patient create(@RequestBody Map<String, Object> body) {
         Gson gson = new Gson();
         System.out.println(body.get("payload"));
-        PatientPayload patientPayload = gson.fromJson(body.get("payload").toString(), PatientPayload.class);
+        PatientPayload patientPayload = jsonConverterHelper.parseJsonData(body.get("payload").toString(), PatientPayload.class);
         Optional<Patient> newPatient = patientService.createPatient(patientPayload);
         return newPatient.get();
     }

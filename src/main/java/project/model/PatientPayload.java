@@ -2,12 +2,18 @@ package project.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class PatientPayload {
 
     @SerializedName("patientDetails")
     private Patient patient;
-    private Contact contact;
-    private Address address;
+
+    @SerializedName("contacts")
+    private List<Contact> contacts;
+
+    @SerializedName("addresses")
+    private List<Address> addresses;
 
     public Patient getPatient() {
         return patient;
@@ -17,28 +23,28 @@ public class PatientPayload {
         this.patient = patient;
     }
 
-    public Contact getContact() {
-        return contact;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 
-    public Address getAddress() {
-        return address;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     @Override
     public String toString() {
         return "PatientPayload{" +
                 "patient=" + patient +
-                ", contact=" + contact +
-                ", address=" + address +
+                ", contacts=" + contacts +
+                ", addresses=" + addresses +
                 '}';
     }
 }
