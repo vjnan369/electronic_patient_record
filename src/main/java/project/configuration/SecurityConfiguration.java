@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/", "/patients").permitAll()
                 .antMatchers("/oauth/token").permitAll()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and().httpBasic();
         http.csrf().disable();
     }
